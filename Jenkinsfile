@@ -5,6 +5,10 @@ node {
         checkout scm
     }
 
+    stage('Build distribution') {
+        sh 'grunt dist'
+    }
+
     stage('Build image') {
         docker.withServer('unix:///var/run/docker.sock', '') {
           app = docker.build('game_server')
