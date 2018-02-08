@@ -6,7 +6,7 @@ node {
     }
 
     stage('Build distribution') {
-        sh 'bower install --development'
+        sh '/usr/bin/bower --allow-root install --development'
         sh 'npm install --development'
         sh '/usr/bin/grunt dist'
     }
