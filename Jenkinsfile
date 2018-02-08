@@ -6,6 +6,7 @@ node {
     }
 
     stage('Build distribution') {
+        sh 'npm install --development'
         sh '/usr/bin/grunt dist'
     }
 
