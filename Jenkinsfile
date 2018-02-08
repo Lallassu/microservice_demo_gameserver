@@ -40,7 +40,7 @@ node {
           sh "docker service update --image ${env.HOST_IP}:5000/game_server:${env.BUILD_NUMBER} game_server"
       } else {
           echo "Performing deploy of service."
-          sh "docker service create --replicas 2 -p 6001:8000 --name game_server ${env.HOST_IP}:5000/game_server:${env.BUILD_NUMBER}"
+          sh "docker service create -e HOST_IP=${env.HOST_IP} --replicas 2 -p 6001:8000 --name game_server ${env.HOST_IP}:5000/game_server:${env.BUILD_NUMBER}"
       }
   }
 
