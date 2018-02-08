@@ -4,12 +4,9 @@ FROM node:alpine
 RUN mkdir -p /badsanta/
 WORKDIR /badsanta
 
-# Install app dependencies
-RUN npm install --production 
-# grunt dist
-
 # Bundle app source
 ADD dist /badsanta
+RUN npm install --production 
 
 EXPOSE 8000
 CMD [ "npm", "start" ]
