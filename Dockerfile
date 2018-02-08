@@ -1,15 +1,15 @@
 FROM node:alpine
 
 # Create app directory
-RUN mkdir -p /usr/src/badsanta/
-WORKDIR /usr/src/badsanta
+RUN mkdir -p /badsanta/
+WORKDIR /badsanta
 
 # Install app dependencies
-COPY package.json /usr/src/badsanta/
-RUN npm install --production
+RUN npm install --production 
+# grunt dist
 
 # Bundle app source
-ADD dist /usr/src/badsanta/
+ADD dist /badsanta
 
 EXPOSE 8000
 CMD [ "npm", "start" ]

@@ -6,7 +6,7 @@ node {
     }
 
     stage('Build distribution') {
-        sh 'grunt dist'
+        sh '/usr/bin/grunt dist'
     }
 
     stage('Build image') {
