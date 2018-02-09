@@ -37,7 +37,7 @@ node {
       // Check if service runs, then perform rolling upgrade, else deploy.
       if (sh(returnStatus: true, script: "docker service inspect game_server") == 0) {
           echo "Performing rolling upgrade of service."
-          sh "docker service update --image ${env.HOST_IP}:5000/game_server:${env.BUILD_NUMBER} game_server"
+          sh "docker service update --end-add HOST_IP=${env.HOST_IP} --image ${env.HOST_IP}:5000/game_server:${env.BUILD_NUMBER} game_server"
       } else {
           echo "Performing deploy of service."
           sh "docker service create -e HOST_IP=${env.HOST_IP} --replicas 2 -p 6001:8000 --name game_server ${env.HOST_IP}:5000/game_server:${env.BUILD_NUMBER}"
