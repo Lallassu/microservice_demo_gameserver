@@ -293,6 +293,12 @@ eurecaServer.exports.login = function (id) {
             http.request(backend, function(res) {
                 res.on('data', function (rows) {
                     data = JSON.parse(rows);
+
+                    if(data.name == undefined) {
+                        remote.serverFull("Login failed");
+                        return;
+                    }
+
                     logger.log('Player: ', data.name, "joined.");
                     var name = data.name;
                     var player = new Player();

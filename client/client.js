@@ -58,7 +58,7 @@ function Game() {
     Game.prototype.serverFull = function(text) {
         this.hud.serverFull(text);
         setTimeout(function() {
-            window.location = "http://santa.qake.se";
+            window.history.back();
         }, 1500);
     };
 
