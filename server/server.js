@@ -292,15 +292,16 @@ eurecaServer.exports.login = function (id) {
             backend.path = "/auth_user/"+id;
             http.request(backend, function(res) {
                 res.on('data', function (rows) {
-                    logger.log('Player: ', rows[0].name, "joined.");
-                    var name = rows[0].name;
+                    data = JSON.parse(rows);
+                    logger.log('Player: ', data.name, "joined.");
+                    var name = data.name;
                     var player = new Player();
                     player.server_collide = collide;
                     player.name = name;
                     player.server = true;
                     player.conn_id = that.user.clientId;
                     player.id = player_ids++; // small value compared to conn_id to save bw.
-                    player.db_id = rows[0].player_id;
+                    player.db_id = id;
                     player.x = 10+Math.random()*map_width-10;
                     player.y = 0;
                     player.alive = true;
