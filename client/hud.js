@@ -8,6 +8,7 @@ function Hud(game) {
     this.kills_ts = 0;
     this.is_full = 0;
     this.mapTimeout = 0;
+    this.hostname = "";
 
     Hud.prototype.serverFull = function(text) {
         this.is_full = text;
@@ -61,9 +62,9 @@ function Hud(game) {
     };
 
     Hud.prototype.update = function(delta) {
-        this.game.game.debug.text(this.game.game.time.fps + " FPS" || '--', 5, 10, "#00ffff", "10px Courier");
-        //this.game.game.debug.text(this.game.game.lag + " ms", 50, 10, "#ffffff", "10px Courier");
-        this.game.game.debug.text("Game Time: "+this.mapTimeout + " sec", 5, 20, "#ff00ff", "10px Courier");
+        this.game.game.debug.text("Container: "+this.hostname, 5, 10, "#FFFF00", "8px Courier");
+        this.game.game.debug.text(this.game.game.time.fps + " FPS" || '--', 5, 20, "#00ffff", "10px Courier");
+        this.game.game.debug.text("Game Time: "+this.mapTimeout + " sec", 5, 30, "#ff00ff", "10px Courier");
 
         this.updateScoreboard();
         if(this.respawn_time >= 0) {

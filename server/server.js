@@ -23,6 +23,8 @@ var http = require("http");
 var server_name = generate().dashed;
 
 var public_ip = process.env.HOST_IP;
+var hostname = require("os").hostname();
+console.log("HOST: ",hostname);
 
 var backend = {
     host: process.env.HOST_IP,
@@ -324,7 +326,7 @@ eurecaServer.exports.login = function (id) {
                         remote.spawnPlayer(players[i].conn_id, players[i].id, players[i].x, players[i].y, players[i].name);
                     }
                     players.push(player);
-                    remote.spawnLocal(player.id, that.user.clientId, player.x, player.y, name);	
+                    remote.spawnLocal(player.id, that.user.clientId, player.x, player.y, name, hostname);	
                     saveToDB(player.db_id, 2, 0);
                 });
             }).end();

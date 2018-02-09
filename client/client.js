@@ -129,8 +129,8 @@ function Game() {
         this.world.pixelUpdate = true;
     };
 
-    Game.prototype.spawnLocal = function(id, conn_id, x, y, name) { 
-        console.log("SPAWN LOCAL: ",name, conn_id, id);
+    Game.prototype.spawnLocal = function(id, conn_id, x, y, name, hostname) { 
+        console.log("SPAWN LOCAL: ",name, conn_id, id, hostname);
         var p = new Player(Draw);
         p.name = name;
         p.id = id;
@@ -140,6 +140,7 @@ function Game() {
         p.alive = false;
         p.local = true;
         p.init(this);
+        this.hud.hostname = hostname;
         this.players.push(p);
         this.world.snd_santa.play('', 0, this.volume(x,y));
     };
