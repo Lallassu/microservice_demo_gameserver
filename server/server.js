@@ -589,8 +589,10 @@ function collide(x,y) {
 // type 1 = death
 // type 2 = last_played
 function saveToDB(id, type, number) {
-    backend.method = "GET";
+    backend.method = "POST";
     backend.path = "/update_db?id="+id+"&type="+type;
+    backend.headers = {'Content-Type': 'application/json'};
+
     http.request(backend, function(res) {
     }).end();
 }
