@@ -36,7 +36,7 @@ services:
       #  placement: 
       #    constraints: 
         #    - "node.role == worker"
-      replicas: 5
+      replicas: 3 
       restart_policy: 
         condition: any
       update_config: 
