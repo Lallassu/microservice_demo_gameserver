@@ -24,7 +24,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
   game_server: 
     environment:
-        - HOST_IP=10.67.228.80
+        - HOST_IP=${HOST_IP}
         - DEBUG=express:*
     deploy: 
       labels: 
