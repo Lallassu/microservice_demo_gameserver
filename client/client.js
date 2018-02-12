@@ -5,6 +5,23 @@ var Hud = require('../client/hud.js');
 
 var game = new Game();
 game.init();
+var net = 0;
+setTimeout(function() {
+    net = new Eureca.Client();
+    net.ready(game.clientReady.bind(game));
+    net.exports.spawnLocal = game.spawnLocal.bind(game);
+    net.exports.spawnPlayer = game.spawnPlayer.bind(game);
+    net.exports.serverUpdate = game.serverUpdate.bind(game);
+    net.exports.serverDebug = game.serverDebug.bind(game);
+    net.exports.dropPlayer = game.dropPlayer.bind(game);
+    net.exports.explode = game.explode.bind(game);
+    net.exports.explodePlayer = game.explodePlayer.bind(game);
+    net.exports.setMap = game.setMap.bind(game);
+    net.exports.fireMissile = game.fireMissile.bind(game);
+    net.exports.reset = game.reset.bind(game);
+    net.exports.respawn = game.respawn.bind(game);
+    net.exports.serverFull = game.serverFull.bind(game);
+}, 1000);
 
 function Game() {
     this.game = 0;
@@ -31,27 +48,15 @@ function Game() {
     };
 
     Game.prototype.preload = function() {
+        console.log("PRELOAD WORLD");
         this.world.preload();
     };
 
     Game.prototype.create = function() {
+        console.log("CREATE GAME");
         this.world.create();
-
-        this.net = new Eureca.Client();
-        
-        this.net.ready(this.clientReady.bind(this));
-        this.net.exports.spawnLocal = this.spawnLocal.bind(this);
-        this.net.exports.spawnPlayer = this.spawnPlayer.bind(this);
-        this.net.exports.serverUpdate = this.serverUpdate.bind(this);
-        this.net.exports.serverDebug = this.serverDebug.bind(this);
-        this.net.exports.dropPlayer = this.dropPlayer.bind(this);
-        this.net.exports.explode = this.explode.bind(this);
-        this.net.exports.explodePlayer = this.explodePlayer.bind(this);
-        this.net.exports.setMap = this.setMap.bind(this);
-        this.net.exports.fireMissile = this.fireMissile.bind(this);
-        this.net.exports.reset = this.reset.bind(this);
-        this.net.exports.respawn = this.respawn.bind(this);
-        this.net.exports.serverFull = this.serverFull.bind(this);
+       
+ //       this.net.ready(this.clientReady.bind(this));
 
     };
 
@@ -102,9 +107,9 @@ function Game() {
                 update: this.update.bind(this),
             }
         );
+        this.world = new Draw.DrawWorld(this.game);
         this.hud = new Hud(this);
         this.game.hud = this.hud;
-        this.world = new Draw.DrawWorld(this.game);
 
     };
 
@@ -130,6 +135,7 @@ function Game() {
     };
 
     Game.prototype.spawnLocal = function(id, conn_id, x, y, name, hostname) { 
+        this.create();
         console.log("SPAWN LOCAL: ",name, conn_id, id, hostname);
         var p = new Player(Draw);
         p.name = name;
