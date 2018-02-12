@@ -28,7 +28,7 @@ services:
         - DEBUG=express:*
     deploy: 
       labels: 
-        - traefik.docker.network=test_net
+        - traefik.docker.network=game_net
         - traefik.port=80
         - "traefik.frontend.rule=PathPrefix:/;"
         - traefik.backend.loadbalancer.sticky=true
@@ -41,7 +41,7 @@ services:
         condition: any
       update_config: 
         delay: 2s
-    image: game_server:latest
+    image: ${HOST_IP}:5000/game_server:${BUILD_NUMBER}
     networks: 
       - net
     ports: 
