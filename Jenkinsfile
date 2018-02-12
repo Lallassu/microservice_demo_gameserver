@@ -35,7 +35,7 @@ node {
 
   stage('Deploy To Swarm') {
       // Check if service runs, then perform rolling upgrade, else deploy.
-      sh "docker stack deploy -c compose.yml game"
+      sh "docker stack deploy -c docker-compose.yml game"
       //if (sh(returnStatus: true, script: "docker service inspect game_server") == 0) {
       //    echo "Performing rolling upgrade of service."
       //    // sh "docker service update --env-add HOST_IP=${env.HOST_IP} --image ${env.HOST_IP}:5000/game_server:${env.BUILD_NUMBER} game_server"
