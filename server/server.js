@@ -6,7 +6,7 @@ var express = require('express');
 var app = express(app);
 var server = require('http').createServer(app);
 var logger = require('util');
-var port = 8000;
+var port = 80;
 var external_port = 6001;
 var version = 0.1;
 var hash = require('object-hash');
@@ -33,6 +33,7 @@ var backend = {
 
 
 publicIp.v4().then(ip => {
+    console.log("IP: ",ip);
     //public_ip = ip; // || process.env.EXT_IP;
     logger.log("\033[92m");
     logger.log("====================================");

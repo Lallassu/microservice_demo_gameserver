@@ -1,0 +1,50 @@
+--- 
+networks: 
+  net: ~
+services: 
+  loadbalancer: 
+    command: "--docker \\ --docker.swarmmode \\ --docker.watch \\ --web \\ --loglevel=DEBUG"
+    deploy: 
+      mode: replicated
+      placement: 
+        constraints: 
+          - "node.role == manager"
+      replicas: 1
+      restart_policy: 
+        condition: any
+      update_config: 
+        delay: 2s
+    image: traefik
+    networks: 
+      - net
+    ports: 
+      - "80:80"
+      - "9090:8080"
+    volumes: 
+      - "/var/run/docker.sock:/var/run/docker.sock"
+  game_server: 
+    environment:
+        - HOST_IP=10.67.228.80
+        - DEBUG=express:*
+    deploy: 
+      labels: 
+        - traefik.docker.network=test_net
+        - traefik.port=80
+        - "traefik.frontend.rule=PathPrefix:/;"
+        - traefik.backend.loadbalancer.sticky=true
+      mode: replicated
+      #  placement: 
+      #    constraints: 
+        #    - "node.role == worker"
+      replicas: 5
+      restart_policy: 
+        condition: any
+      update_config: 
+        delay: 2s
+    image: game_server:latest
+    networks: 
+      - net
+    ports: 
+      - "80"
+version: "3"
+
