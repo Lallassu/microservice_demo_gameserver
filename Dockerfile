@@ -8,5 +8,5 @@ WORKDIR /badsanta
 ADD dist /badsanta
 RUN npm install --production 
 
-EXPOSE 8000
+EXPOSE 80
 CMD [ "npm", "start" ]
